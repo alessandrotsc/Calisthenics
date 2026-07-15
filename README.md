@@ -49,11 +49,9 @@ tools/
 assets/               App-Icons
 ```
 
-## Icon neu bauen
+## Icon
 
-```bash
-python3 tools/make_icon.py
-```
+Quelle ist `tools/icon.svg` (Front-Lever-Figur an der Stange, Standard) und `tools/icon_maskable.svg` (mehr Rand fuer Android-Maske). Zum Neu-Erzeugen der PNGs das SVG mit Chrome nach 1024px rendern und mit Pillow auf 512/192/180 herunterskalieren (Standard-Icons abgerundet). Die aeltere PIL-Variante `tools/make_icon.py` ist nur noch historisch.
 
 ## Offen / Ideen
 
