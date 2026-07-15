@@ -1,13 +1,13 @@
-// Kleine Helfer fuer Datum, Zeit und DOM.
+// Kleine Helfer für Datum, Zeit und DOM.
 
 export const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 export const WEEKDAYS_LONG = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 export const MONTHS = [
-  "Januar", "Februar", "Maerz", "April", "Mai", "Juni",
+  "Januar", "Februar", "März", "April", "Mai", "Juni",
   "Juli", "August", "September", "Oktober", "November", "Dezember",
 ];
 
-// YYYY-MM-DD fuer ein Date-Objekt (lokale Zeit).
+// YYYY-MM-DD für ein Date-Objekt (lokale Zeit).
 export function ymd(d) {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -41,7 +41,7 @@ export function relativeDays(dateStr, todayS) {
   return `vor ${diff} Tagen`;
 }
 
-// Sekunden schoen: 42s, 1:05, 2:03
+// Sekunden schön: 42s, 1:05, 2:03
 export function fmtSeconds(sec) {
   if (sec == null) return "–";
   if (sec < 60) return `${sec}s`;

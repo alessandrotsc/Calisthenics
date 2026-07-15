@@ -1,4 +1,4 @@
-// Persistenz ueber localStorage. Ein einziges JSON-Objekt, einfach und robust.
+// Persistenz über localStorage. Ein einziges JSON-Objekt, einfach und robust.
 // Bewusst kein IndexedDB: die Datenmengen sind klein, Export/Import als Datei reicht.
 
 const KEY = "calis.v1";
@@ -36,7 +36,7 @@ function persist() {
   }
 }
 
-// Eindeutige ID ohne Date.now/Math.random-Abhaengigkeit an einer Stelle zentralisiert.
+// Eindeutige ID ohne Date.now/Math.random-Abhängigkeit an einer Stelle zentralisiert.
 let idCounter = 0;
 function uid(prefix) {
   idCounter += 1;
@@ -59,7 +59,7 @@ export function setTrainingDays(days) {
 }
 export function setName(name) { state.settings.name = name; persist(); }
 
-// ---------- Meine Uebungen ----------
+// ---------- Meine Übungen ----------
 export function addMyItem(itemId, progId) {
   if (!isMyItem(itemId)) state.myItems.push({ itemId, progId: progId || null });
   persist();
@@ -73,7 +73,7 @@ export function setItemProgression(itemId, progId) {
   if (m) { m.progId = progId; persist(); }
 }
 
-// ---------- Plaene ----------
+// ---------- Pläne ----------
 export function addPlan(name, emoji, entries) {
   const plan = { id: uid("plan"), name, emoji: emoji || "🏋️", entries: entries || [] };
   state.plans.push(plan);
@@ -112,7 +112,7 @@ export function sessionsForDate(date) {
 }
 
 // ---------- Analyse / Vergleich ----------
-// Bester Wert eines Entries: hoechste Sekunden (hold) bzw. hoechste Reps (reps).
+// Bester Wert eines Entries: höchste Sekunden (hold) bzw. höchste Reps (reps).
 export function bestOfEntry(entry, type) {
   if (!entry || !entry.sets || !entry.sets.length) return null;
   const vals = entry.sets
@@ -122,14 +122,14 @@ export function bestOfEntry(entry, type) {
   return Math.max(...vals);
 }
 
-// Summe aller Reps (Trainingsvolumen fuer reps-Uebungen).
+// Summe aller Reps (Trainingsvolumen für reps-Übungen).
 export function volumeOfEntry(entry) {
   if (!entry || !entry.sets) return 0;
   return entry.sets.reduce((sum, s) => sum + (s.reps || 0), 0);
 }
 
-// Findet die letzte Session VOR einer bestimmten (nach Datum), die dieses Item enthaelt.
-// Gibt { session, entry, best } zurueck oder null.
+// Findet die letzte Session VOR einer bestimmten (nach Datum), die dieses Item enthält.
+// Gibt { session, entry, best } zurück oder null.
 export function previousResult(itemId, type, beforeDate, excludeSessionId) {
   const cands = state.sessions
     .filter((s) => s.id !== excludeSessionId && s.date <= beforeDate)
@@ -144,7 +144,7 @@ export function previousResult(itemId, type, beforeDate, excludeSessionId) {
   return null;
 }
 
-// Verlaufsdaten fuer einen Skill/Uebung: [{date, best}], chronologisch aufsteigend.
+// Verlaufsdaten für einen Skill/Übung: [{date, best}], chronologisch aufsteigend.
 export function historyForItem(itemId, type) {
   return state.sessions
     .filter((s) => s.entries.some((e) => e.itemId === itemId))
@@ -156,15 +156,15 @@ export function historyForItem(itemId, type) {
     .sort((a, b) => (a.date < b.date ? -1 : 1));
 }
 
-// Persoenliche Bestleistung ueber alle Sessions.
+// Persönliche Bestleistung über alle Sessions.
 export function personalBest(itemId, type) {
   const hist = historyForItem(itemId, type);
   if (!hist.length) return null;
   return Math.max(...hist.map((h) => h.best));
 }
 
-// Streak: aufeinanderfolgende Trainings-Tage (nach Datum, Luecke > 1 geplanter Rhythmus toleriert grob).
-// Einfache Variante: Anzahl Tage von heute rueckwaerts mit Training, Kette bricht bei > 3 Tagen Pause.
+// Streak: aufeinanderfolgende Trainings-Tage (nach Datum, Lücke > 1 geplanter Rhythmus toleriert grob).
+// Einfache Variante: Anzahl Tage von heute rückwärts mit Training, Kette bricht bei > 3 Tagen Pause.
 export function trainingStreak(todayStr) {
   const dates = [...new Set(state.sessions.map((s) => s.date))].sort().reverse();
   if (!dates.length) return 0;

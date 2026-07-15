@@ -1,4 +1,4 @@
-// "Meine" Uebungen, Archiv (alle Skills/Uebungen) und Detail mit Verlauf.
+// "Meine" Übungen, Archiv (alle Skills/Übungen) und Detail mit Verlauf.
 import { el, clear, fmtSeconds, prettyDate, relativeDays, todayStr } from "../core/util.js";
 import * as store from "../core/store.js";
 import { CATALOG, CATEGORIES, getItem, itemsByCat, progressionName } from "../data/catalog.js";
@@ -11,7 +11,7 @@ export function renderLibrary() {
   view.appendChild(el("div", { class: "page-head" }, [
     el("div", {}, [
       el("div", { class: "eyebrow", text: "Dein Arsenal" }),
-      el("h1", { class: "page-title", text: "Meine Uebungen" }),
+      el("h1", { class: "page-title", text: "Meine Übungen" }),
     ]),
     el("button", { class: "iconbtn", text: "＋", on: { click: () => navigate("archive") } }),
   ]));
@@ -20,8 +20,8 @@ export function renderLibrary() {
   if (!my.length) {
     view.appendChild(el("div", { class: "empty" }, [
       el("span", { class: "big", text: "⭐" }),
-      el("div", { text: "Waehle im Archiv die Skills und Uebungen aus, die du trackst." }),
-      el("button", { class: "btn primary block", text: "Archiv oeffnen", attrs: { style: "margin-top:16px;max-width:240px" }, on: { click: () => navigate("archive") } }),
+      el("div", { text: "Wähle im Archiv die Skills und Übungen aus, die du trackst." }),
+      el("button", { class: "btn primary block", text: "Archiv öffnen", attrs: { style: "margin-top:16px;max-width:240px" }, on: { click: () => navigate("archive") } }),
     ]));
     return view;
   }
@@ -69,7 +69,7 @@ export function renderArchive() {
     el("button", { class: "iconbtn", text: "‹", on: { click: () => navigate("library") } }),
     el("div", { class: "tb-title", text: "Archiv" }),
   ]));
-  view.appendChild(el("div", { class: "page-sub", attrs: { style: "margin:-8px 2px 0" }, text: "Alle Skills und Uebungen. Tippe den Stern zum Merken." }));
+  view.appendChild(el("div", { class: "page-sub", attrs: { style: "margin:-8px 2px 0" }, text: "Alle Skills und Übungen. Tippe den Stern zum Merken." }));
 
   // Kategorie-Filter
   const chips = el("div", { class: "chip-row" });
@@ -139,7 +139,7 @@ function openProgressionPicker(item, onDone) {
     ]));
   });
   openSheet(`${item.emoji} ${item.name} · Stufe`, [
-    el("div", { class: "info-line", attrs: { style: "margin-bottom:10px" }, text: "Auf welcher Stufe bist du gerade? Kannst du spaeter aendern." }),
+    el("div", { class: "info-line", attrs: { style: "margin-bottom:10px" }, text: "Auf welcher Stufe bist du gerade? Kannst du später ändern." }),
     list,
   ]);
 }
@@ -148,7 +148,7 @@ function openProgressionPicker(item, onDone) {
 export function renderItemDetail(id) {
   const item = getItem(id);
   const view = el("div", { class: "view" });
-  if (!item) { view.appendChild(el("div", { class: "empty", text: "Uebung nicht gefunden." })); return view; }
+  if (!item) { view.appendChild(el("div", { class: "empty", text: "Übung nicht gefunden." })); return view; }
 
   const isMine = store.isMyItem(item.id);
   const myItem = store.getMyItems().find((m) => m.itemId === item.id);
@@ -186,7 +186,7 @@ export function renderItemDetail(id) {
   }
   view.appendChild(head);
 
-  // Progression waehlen (nur wenn gemerkt)
+  // Progression wählen (nur wenn gemerkt)
   if (item.progressions) {
     const cur = myItem ? myItem.progId : null;
     view.appendChild(el("div", { class: "section-head" }, [el("div", { class: "section-title", text: "Deine Stufe" })]));
@@ -208,7 +208,7 @@ export function renderItemDetail(id) {
   const hist = store.historyForItem(item.id, item.type);
   view.appendChild(el("div", { class: "section-head" }, [el("div", { class: "section-title", text: "Fortschritt" })]));
   if (!hist.length) {
-    view.appendChild(el("div", { class: "empty", text: "Noch keine Daten. Trag die Uebung in einem Training ein." }));
+    view.appendChild(el("div", { class: "empty", text: "Noch keine Daten. Trag die Übung in einem Training ein." }));
   } else {
     const pb = Math.max(...hist.map((h) => h.best));
     const first = hist[0].best;
@@ -230,7 +230,7 @@ export function renderItemDetail(id) {
       list.appendChild(el("div", { class: "item" }, [
         el("div", { class: "item-body" }, [
           el("div", { class: "item-name", text: item.type === "hold" ? fmtSeconds(h.best) : h.best + " Wdh" }),
-          el("div", { class: "item-meta", text: `${prettyDate(h.date)} • ${h.sets} ${h.sets === 1 ? "Satz" : "Saetze"}` }),
+          el("div", { class: "item-meta", text: `${prettyDate(h.date)} • ${h.sets} ${h.sets === 1 ? "Satz" : "Sätze"}` }),
         ]),
         d != null && d !== 0 ? el("span", { class: "delta " + (d > 0 ? "up" : "down"), text: (d > 0 ? "+" : "") + d + (item.type === "hold" ? "s" : "") }) : null,
       ]));

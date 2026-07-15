@@ -1,4 +1,4 @@
-// "Mehr": Trainingstage, Plaene, Export/Import, Reset.
+// "Mehr": Trainingstage, Pläne, Export/Import, Reset.
 import { el, clear } from "../core/util.js";
 import * as store from "../core/store.js";
 import { getItem, CATEGORIES, progressionName } from "../data/catalog.js";
@@ -19,7 +19,7 @@ export function renderMore() {
   // Name
   const nameCard = el("div", { class: "card" }, [
     el("div", { class: "card-title", text: "Dein Name" }),
-    el("div", { class: "card-sub", text: "Fuer die Begruessung auf der Startseite." }),
+    el("div", { class: "card-sub", text: "Für die Begrüßung auf der Startseite." }),
   ]);
   const nameIn = el("input", { class: "weight-in", attrs: { type: "text", placeholder: "Name", value: settings.name || "", style: "width:100%;text-align:left;margin-top:12px;height:46px;padding:0 14px" } });
   nameIn.addEventListener("input", () => store.setName(nameIn.value.trim()));
@@ -48,14 +48,14 @@ export function renderMore() {
   daysCard.appendChild(dayRow);
   view.appendChild(daysCard);
 
-  // Plaene
+  // Pläne
   view.appendChild(el("div", { class: "section-head" }, [
-    el("div", { class: "section-title", text: "Trainingsplaene" }),
+    el("div", { class: "section-title", text: "Trainingspläne" }),
     el("button", { class: "link", text: "+ Neu", on: { click: () => navigate("plan/new") } }),
   ]));
   const plans = store.getPlans();
   if (!plans.length) {
-    view.appendChild(el("div", { class: "info-line", attrs: { style: "padding:4px 4px 8px" }, text: "Noch keine Plaene. Ein Plan buendelt deine Lieblingsuebungen fuer einen schnellen Start." }));
+    view.appendChild(el("div", { class: "info-line", attrs: { style: "padding:4px 4px 8px" }, text: "Noch keine Pläne. Ein Plan bündelt deine Lieblingsübungen für einen schnellen Start." }));
   } else {
     const list = el("div", { class: "list" });
     plans.forEach((pl) => {
@@ -63,7 +63,7 @@ export function renderMore() {
         el("div", { class: "item-emoji", text: pl.emoji || "🏋️" }),
         el("div", { class: "item-body" }, [
           el("div", { class: "item-name", text: pl.name }),
-          el("div", { class: "item-meta", text: `${pl.entries.length} Uebungen` }),
+          el("div", { class: "item-meta", text: `${pl.entries.length} Übungen` }),
         ]),
         el("span", { class: "iconbtn", text: "›" }),
       ]));
@@ -74,7 +74,7 @@ export function renderMore() {
   // Daten
   view.appendChild(el("div", { class: "section-head" }, [el("div", { class: "section-title", text: "Daten" })]));
   const dataCard = el("div", { class: "card" }, [
-    el("div", { class: "info-line", text: "Alle Daten liegen nur auf diesem Geraet. Sichere sie regelmaessig als Datei." }),
+    el("div", { class: "info-line", text: "Alle Daten liegen nur auf diesem Gerät. Sichere sie regelmäßig als Datei." }),
   ]);
   dataCard.appendChild(el("button", { class: "btn ghost block", text: "⬇ Backup exportieren", attrs: { style: "margin-top:12px" }, on: { click: exportData } }));
   const importBtn = el("button", { class: "btn ghost block", text: "⬆ Backup importieren", attrs: { style: "margin-top:8px" } });
@@ -83,7 +83,7 @@ export function renderMore() {
   importBtn.addEventListener("click", () => fileIn.click());
   dataCard.appendChild(importBtn);
   dataCard.appendChild(fileIn);
-  dataCard.appendChild(el("button", { class: "btn danger block", text: "Alles zuruecksetzen", attrs: { style: "margin-top:8px" }, on: { click: confirmReset } }));
+  dataCard.appendChild(el("button", { class: "btn danger block", text: "Alles zurücksetzen", attrs: { style: "margin-top:8px" }, on: { click: confirmReset } }));
   view.appendChild(dataCard);
 
   view.appendChild(el("div", { class: "info-line", attrs: { style: "text-align:center;margin-top:6px" }, text: `Calisthenics-Tracker · Version ${APP_VERSION}` }));
@@ -104,15 +104,15 @@ function importData(file) {
   const reader = new FileReader();
   reader.onload = () => {
     try { store.importJSON(String(reader.result)); toast("Import erfolgreich"); navigate("home"); }
-    catch (e) { toast("Datei ungueltig"); }
+    catch (e) { toast("Datei ungültig"); }
   };
   reader.readAsText(file);
 }
 
 function confirmReset() {
-  openSheet("Wirklich alles loeschen?", [
-    el("div", { class: "info-line", text: "Alle Trainings, Plaene und Einstellungen werden entfernt. Exportiere vorher ein Backup, wenn du sichergehen willst." }),
-    el("button", { class: "btn danger block", text: "Ja, alles zuruecksetzen", attrs: { style: "margin-top:14px" }, on: { click: () => { store.resetAll(); closeSheet(); toast("Zurueckgesetzt"); navigate("home"); } } }),
+  openSheet("Wirklich alles löschen?", [
+    el("div", { class: "info-line", text: "Alle Trainings, Pläne und Einstellungen werden entfernt. Exportiere vorher ein Backup, wenn du sichergehen willst." }),
+    el("button", { class: "btn danger block", text: "Ja, alles zurücksetzen", attrs: { style: "margin-top:14px" }, on: { click: () => { store.resetAll(); closeSheet(); toast("Zurückgesetzt"); navigate("home"); } } }),
     el("button", { class: "btn ghost block", text: "Abbrechen", attrs: { style: "margin-top:8px" }, on: { click: closeSheet } }),
   ]);
 }
@@ -130,7 +130,7 @@ export function renderPlanEdit(id) {
   view.appendChild(el("div", { class: "topbar" }, [
     el("button", { class: "iconbtn", text: "‹", on: { click: () => navigate("more") } }),
     el("div", { class: "tb-title", text: isNew ? "Neuer Plan" : "Plan bearbeiten" }),
-    isNew ? null : el("button", { class: "iconbtn", text: "🗑", on: { click: () => { store.deletePlan(id); toast("Plan geloescht"); navigate("more"); } } }),
+    isNew ? null : el("button", { class: "iconbtn", text: "🗑", on: { click: () => { store.deletePlan(id); toast("Plan gelöscht"); navigate("more"); } } }),
   ]));
 
   // Name + Emoji
@@ -140,14 +140,14 @@ export function renderPlanEdit(id) {
   emojiBtn.addEventListener("click", () => {
     const grid = el("div", { attrs: { style: "display:grid;grid-template-columns:repeat(6,1fr);gap:8px" } });
     PLAN_EMOJIS.forEach((em) => grid.appendChild(el("button", { class: "item-emoji", attrs: { style: "width:100%;height:48px;font-size:24px;cursor:pointer" }, text: em, on: { click: () => { draft.emoji = em; emojiBtn.textContent = em; closeSheet(); } } })));
-    openSheet("Symbol waehlen", [grid]);
+    openSheet("Symbol wählen", [grid]);
   });
   view.appendChild(el("div", { attrs: { style: "display:flex;gap:10px" } }, [emojiBtn, nameIn]));
 
-  // Uebungen im Plan
+  // Übungen im Plan
   view.appendChild(el("div", { class: "section-head" }, [
-    el("div", { class: "section-title", text: "Uebungen im Plan" }),
-    el("button", { class: "link", text: "+ Hinzufuegen", on: { click: () => openPicker() } }),
+    el("div", { class: "section-title", text: "Übungen im Plan" }),
+    el("button", { class: "link", text: "+ Hinzufügen", on: { click: () => openPicker() } }),
   ]));
   const listWrap = el("div", { class: "list" });
   view.appendChild(listWrap);
@@ -155,7 +155,7 @@ export function renderPlanEdit(id) {
   function renderDraftList() {
     clear(listWrap);
     if (!draft.entries.length) {
-      listWrap.appendChild(el("div", { class: "empty", text: "Noch keine Uebungen. Tippe auf Hinzufuegen." }));
+      listWrap.appendChild(el("div", { class: "empty", text: "Noch keine Übungen. Tippe auf Hinzufügen." }));
       return;
     }
     draft.entries.forEach((e, i) => {
@@ -178,7 +178,7 @@ export function renderPlanEdit(id) {
     const chosen = new Set(draft.entries.map((e) => e.itemId));
     const content = [];
     if (!my.length) {
-      content.push(el("div", { class: "info-line", text: "Waehle zuerst im Archiv deine Uebungen aus." }));
+      content.push(el("div", { class: "info-line", text: "Wähle zuerst im Archiv deine Übungen aus." }));
       content.push(el("button", { class: "btn primary block", text: "Zum Archiv", attrs: { style: "margin-top:12px" }, on: { click: () => { closeSheet(); navigate("archive"); } } }));
     } else {
       const list = el("div", { class: "list" });
@@ -190,10 +190,10 @@ export function renderPlanEdit(id) {
           el("span", { class: `badge type-${item.type}`, text: item.type === "hold" ? "Sek." : "Wdh" }),
         ]));
       });
-      if (!list.children.length) content.push(el("div", { class: "info-line", text: "Alle deine Uebungen sind schon im Plan." }));
+      if (!list.children.length) content.push(el("div", { class: "info-line", text: "Alle deine Übungen sind schon im Plan." }));
       content.push(list);
     }
-    openSheet("Uebung hinzufuegen", content);
+    openSheet("Übung hinzufügen", content);
   }
 
   // Speichern

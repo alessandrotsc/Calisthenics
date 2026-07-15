@@ -1,5 +1,5 @@
 /* Calisthenics-Tracker, mobil zuerst. Design-Familie Syncrate:
-   dunkles Marineblau mit Tuerkis-Akzent, glossy und ruhig, minimalistisch. */
+   dunkles Marineblau mit Türkis-Akzent, glossy und ruhig, minimalistisch. */
 :root {
   --navy1: #124063;
   --navy2: #0b2740;
@@ -26,20 +26,36 @@
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; height: 100%; }
+/* Solider dunkler Grund unter allem: verhindert den weißen Balken/Blitz beim Start
+   (iOS malt safe-area und Reflow-Luecken sonst weiß). */
+html {
+  margin: 0;
+  min-height: 100%;
+  background: var(--navy3);
+}
 body {
-  background: radial-gradient(120% 90% at 50% 0%, var(--navy1), var(--navy2) 55%, var(--navy3) 100%);
-  background-attachment: fixed;
+  margin: 0;
+  min-height: 100dvh;
+  /* Kein background-attachment: fixed (iOS-Bug: laesst beim Start weiße Flaechen).
+     Fixer Verlauf ueber ein Pseudo-Element, das immer den ganzen Viewport fuellt. */
+  background: var(--navy3);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overscroll-behavior-y: none;
   -webkit-user-select: none;
   user-select: none;
-  min-height: 100dvh;
+}
+/* Verlauf als fixe Ebene hinter dem Inhalt, ohne den fixed-attachment-Bug */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 90% at 50% 0%, var(--navy1), var(--navy2) 55%, var(--navy3) 100%);
 }
 #app { min-height: 100dvh; }
 
-/* Views: Platz unten fuer die Nav */
+/* Views: Platz unten für die Nav */
 .view {
   display: flex; flex-direction: column; gap: 16px;
   padding: calc(var(--safe-top) + 16px) 16px calc(var(--safe-bottom) + var(--nav-h) + 24px);
@@ -106,7 +122,7 @@ body {
 .btn.small { font-size: 14px; padding: 10px 14px; }
 .btn.danger { background: transparent; color: var(--rot); border: 1px solid rgba(239, 68, 68, 0.4); }
 
-/* Topbar mit Zurueck */
+/* Topbar mit Zurück */
 .topbar { display: flex; align-items: center; gap: 10px; }
 .topbar .tb-title { font-weight: 800; font-size: 20px; flex: 1; letter-spacing: -0.3px; }
 .iconbtn {
@@ -132,7 +148,7 @@ body {
 }
 .chip.on { background: var(--cyan); color: #042231; border-color: transparent; font-weight: 800; }
 
-/* Item-Zeile (Skill/Uebung) */
+/* Item-Zeile (Skill/Übung) */
 .item {
   display: flex; align-items: center; gap: 12px;
   background: var(--glas); border: 1px solid var(--line); border-radius: 16px;

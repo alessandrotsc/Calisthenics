@@ -1,4 +1,4 @@
-// Startseite "Heute": Status, Streak, letzte Fortschritte, Skill-Ueberblick.
+// Startseite "Heute": Status, Streak, letzte Fortschritte, Skill-Überblick.
 import { el } from "../core/util.js";
 import { todayStr, weekdayOf, WEEKDAYS_LONG, prettyDate, relativeDays, fmtSeconds } from "../core/util.js";
 import * as store from "../core/store.js";
@@ -40,18 +40,18 @@ export function renderHome() {
     view.appendChild(list);
   }
 
-  // Skill-Ueberblick
+  // Skill-Überblick
   const skills = store.getMyItems()
     .map((m) => ({ m, item: getItem(m.itemId) }))
     .filter((x) => x.item);
   if (skills.length) {
-    view.appendChild(sectionHead("Deine Uebungen", { text: "Alle", to: "library" }));
+    view.appendChild(sectionHead("Deine Übungen", { text: "Alle", to: "library" }));
     const list = el("div", { class: "list" });
     skills.slice(0, 4).forEach((x) => list.appendChild(skillMiniRow(x.item, x.m)));
     view.appendChild(list);
   } else {
     view.appendChild(el("div", { class: "card" }, [
-      el("div", { class: "info-line", text: "Noch keine Uebungen ausgewaehlt. Leg im Archiv fest, was du trackst." }),
+      el("div", { class: "info-line", text: "Noch keine Übungen ausgewählt. Leg im Archiv fest, was du trackst." }),
       el("button", { class: "btn primary block", text: "Zum Archiv", on: { click: () => navigate("archive") }, attrs: { style: "margin-top:12px" } }),
     ]));
   }
@@ -70,7 +70,7 @@ function heroCard(isTrainingDay, trainedToday, todaysSessions, settings) {
   if (trainedToday) {
     const nEx = todaysSessions.reduce((a, s) => a + s.entries.length, 0);
     hero.appendChild(el("div", { class: "hero-day", text: "Heute erledigt ✅" }));
-    hero.appendChild(el("div", { class: "hero-headline", text: `${nEx} ${nEx === 1 ? "Uebung" : "Uebungen"} getrackt` }));
+    hero.appendChild(el("div", { class: "hero-headline", text: `${nEx} ${nEx === 1 ? "Übung" : "Übungen"} getrackt` }));
     hero.appendChild(el("div", { class: "hero-sub", text: "Stark. Du kannst weiter tracken oder das Training ansehen." }));
     hero.appendChild(el("button", {
       class: "btn primary block", text: "Training ansehen", attrs: { style: "margin-top:14px" },

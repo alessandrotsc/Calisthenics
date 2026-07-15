@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="72%">
+      <stop offset="0%" stop-color="#154a70"/>
+      <stop offset="55%" stop-color="#0b2740"/>
+      <stop offset="100%" stop-color="#061726"/>
+    </radialGradient>
+    <linearGradient id="fig" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fe9f2"/>
+      <stop offset="100%" stop-color="#12b0cd"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c2f2f8"/>
+      <stop offset="100%" stop-color="#59c5db"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="9" stdDeviation="13" flood-color="#020c16" flood-opacity="0.5"/>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <g transform="translate(514,520) scale(1.08) translate(-492,-478)">
+    <!-- weicher Cyan-Schein hinter der Figur -->
+    <g opacity="0.26" filter="url(#soft)">
+      <rect x="160" y="288" width="700" height="60" rx="30" fill="#2ecbe0"/>
+      <rect x="150" y="486" width="470" height="92" rx="46" fill="#2ecbe0"/>
+    </g>
+
+    <!-- Stange -->
+    <rect x="195" y="290" width="640" height="54" rx="27" fill="url(#bar)" filter="url(#glow)"/>
+
+    <g filter="url(#glow)" fill="none" stroke="url(#fig)" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Arm zur Stange -->
+      <path d="M598 340 L580 500" stroke-width="74"/>
+      <!-- Rumpf (Schulter zur Huefte) -->
+      <path d="M592 520 L400 528" stroke-width="98"/>
+      <!-- oberes Bein -->
+      <path d="M432 514 L172 500" stroke-width="56"/>
+      <!-- unteres Bein -->
+      <path d="M432 536 L172 554" stroke-width="56"/>
+    </g>
+
+    <!-- Kopf -->
+    <circle cx="556" cy="480" r="66" fill="url(#fig)" filter="url(#glow)"/>
+  </g>
+</svg>

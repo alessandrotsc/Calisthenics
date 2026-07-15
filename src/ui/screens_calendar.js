@@ -13,7 +13,7 @@ export function renderCalendar(monthParam) {
 
   view.appendChild(el("div", { class: "page-head" }, [
     el("div", {}, [
-      el("div", { class: "eyebrow", text: "Uebersicht" }),
+      el("div", { class: "eyebrow", text: "Übersicht" }),
       el("h1", { class: "page-title", text: "Kalender" }),
     ]),
   ]));
@@ -45,7 +45,7 @@ export function renderCalendar(monthParam) {
   const daysInMonth = new Date(year, month, 0).getDate();
   const prevDays = new Date(year, month - 1, 0).getDate();
 
-  // fuehrende Tage (Vormonat)
+  // führende Tage (Vormonat)
   for (let i = 0; i < firstDow; i++) {
     grid.appendChild(el("div", { class: "cal-cell out", text: String(prevDays - firstDow + 1 + i) }));
   }
@@ -130,14 +130,14 @@ function openDay(dateStr) {
           el("div", { class: "item-emoji", text: item.emoji }),
           el("div", { class: "item-body" }, [
             el("div", { class: "item-name", text: item.name }),
-            el("div", { class: "item-meta", text: `${e.sets.length} ${e.sets.length === 1 ? "Satz" : "Saetze"}` }),
+            el("div", { class: "item-meta", text: `${e.sets.length} ${e.sets.length === 1 ? "Satz" : "Sätze"}` }),
           ]),
           el("div", { class: "item-big", text: best == null ? "–" : (item.type === "hold" ? fmtSeconds(best) : best + " Wdh") }),
         ]));
       });
       if (!s.entries.length) inner.appendChild(el("div", { class: "info-line", text: "Leere Einheit." }));
       content.push(inner);
-      content.push(el("button", { class: "btn ghost block", text: "Einheit oeffnen", attrs: { style: "margin-top:6px" }, on: { click: () => { closeSheet(); navigate("session/" + s.id); } } }));
+      content.push(el("button", { class: "btn ghost block", text: "Einheit öffnen", attrs: { style: "margin-top:6px" }, on: { click: () => { closeSheet(); navigate("session/" + s.id); } } }));
     });
   }
   openSheet(prettyDate(dateStr), content);

@@ -1,6 +1,6 @@
 // Service Worker: App-Shell offline verfuegbar machen.
 // Bei jedem Deploy CACHE hochzaehlen, damit Updates greifen.
-const CACHE = "calis-v2";
+const CACHE = "calis-v3";
 const ASSETS = [
   "./",
   "./index.html",

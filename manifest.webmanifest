@@ -1,7 +1,7 @@
 {
   "name": "Calisthenics-Tracker",
   "short_name": "Calis",
-  "description": "Trainingsplan, Skills und Fortschritt fuer Eigengewichts-Training tracken.",
+  "description": "Trainingsplan, Skills und Fortschritt für Eigengewichts-Training tracken.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

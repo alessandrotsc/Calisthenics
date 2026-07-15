@@ -94,7 +94,7 @@ export function sparkline(values) {
   return svg;
 }
 
-// ---------- Vollstaendiges Verlaufsdiagramm ----------
+// ---------- Vollständiges Verlaufsdiagramm ----------
 // data: [{date, best}], type 'hold'|'reps'
 export function progressChart(data, type) {
   const ns = "http://www.w3.org/2000/svg";
@@ -138,7 +138,7 @@ export function progressChart(data, type) {
 
   const pts = data.map((d, i) => [xOf(i), yOf(d.best)]);
   const lineD = pts.map((p, i) => (i === 0 ? "M" : "L") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
-  // Flaeche
+  // Fläche
   const areaD = `${lineD} L${pts[pts.length - 1][0].toFixed(1)} ${padT + plotH} L${pts[0][0].toFixed(1)} ${padT + plotH} Z`;
   const area = document.createElementNS(ns, "path");
   area.setAttribute("class", "chart-area"); area.setAttribute("d", areaD);

@@ -1,4 +1,4 @@
-// Router + Bottom-Navigation. Hash-basiert, damit es als PWA sauber laeuft.
+// Router + Bottom-Navigation. Hash-basiert, damit es als PWA sauber läuft.
 import { el, clear } from "./core/util.js";
 import { renderHome } from "./ui/screens_home.js";
 import { renderTraining, renderSession } from "./ui/screens_session.js";
@@ -56,7 +56,7 @@ function render() {
   const head = parts[0] || "home";
   clear(app);
 
-  // Sheets beim Navigieren schliessen
+  // Sheets beim Navigieren schließen
   const openSheetEl = document.querySelector(".sheet-wrap");
   if (openSheetEl) openSheetEl.remove();
 

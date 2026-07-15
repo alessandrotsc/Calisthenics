@@ -26,7 +26,7 @@ export function renderTraining() {
         class: "card tap", on: { click: () => navigate("session/" + s.id) },
       }, [
         el("div", { class: "card-title", text: (planNameFor(s) || "Freies Training") }),
-        el("div", { class: "card-sub", text: `${s.entries.length} Uebungen • weiter tracken` }),
+        el("div", { class: "card-sub", text: `${s.entries.length} Übungen • weiter tracken` }),
       ]));
     });
     view.appendChild(list);
@@ -38,16 +38,16 @@ export function renderTraining() {
     on: { click: () => startSession(null) },
   }, [el("span", { text: "＋ Freies Training" })]));
 
-  // Plaene
+  // Pläne
   const plans = store.getPlans();
   view.appendChild(el("div", { class: "section-head", attrs: { style: "margin-top:8px" } }, [
-    el("div", { class: "section-title", text: "Deine Plaene" }),
+    el("div", { class: "section-title", text: "Deine Pläne" }),
     el("button", { class: "link", text: "+ Neuer Plan", on: { click: () => navigate("plan/new") } }),
   ]));
   if (!plans.length) {
     view.appendChild(el("div", { class: "empty" }, [
       el("span", { class: "big", text: "🗂️" }),
-      el("div", { text: "Noch keine Plaene. Erstelle einen Trainingsplan mit deinen Lieblingsuebungen." }),
+      el("div", { text: "Noch keine Pläne. Erstelle einen Trainingsplan mit deinen Lieblingsübungen." }),
     ]));
   } else {
     const list = el("div", { class: "list" });
@@ -56,7 +56,7 @@ export function renderTraining() {
         el("div", { class: "item-emoji", text: pl.emoji || "🏋️" }),
         el("div", { class: "item-body" }, [
           el("div", { class: "item-name", text: pl.name }),
-          el("div", { class: "item-meta", text: `${pl.entries.length} Uebungen` }),
+          el("div", { class: "item-meta", text: `${pl.entries.length} Übungen` }),
         ]),
         el("button", {
           class: "iconbtn", text: "✎",
@@ -105,7 +105,7 @@ export function renderSession(id) {
   ]));
   view.appendChild(el("div", { class: "page-sub", attrs: { style: "margin:-8px 2px 0" }, text: prettyDate(session.date) }));
 
-  // Eintraege
+  // Einträge
   const entriesWrap = el("div", { class: "list" });
   view.appendChild(entriesWrap);
 
@@ -114,7 +114,7 @@ export function renderSession(id) {
     if (!session.entries.length) {
       entriesWrap.appendChild(el("div", { class: "empty" }, [
         el("span", { class: "big", text: "🏋️" }),
-        el("div", { text: "Fuege deine erste Uebung hinzu." }),
+        el("div", { text: "Füge deine erste Übung hinzu." }),
       ]));
     }
     session.entries.forEach((entry, idx) => {
@@ -123,9 +123,9 @@ export function renderSession(id) {
   }
   renderEntries();
 
-  // Uebung hinzufuegen
+  // Übung hinzufügen
   view.appendChild(el("button", {
-    class: "btn ghost block", text: "＋ Uebung hinzufuegen",
+    class: "btn ghost block", text: "＋ Übung hinzufügen",
     on: { click: () => openAddExercise(session, renderEntries) },
   }));
 
@@ -145,17 +145,17 @@ export function renderSession(id) {
 }
 
 function confirmDelete(session) {
-  openSheet("Training loeschen?", [
-    el("div", { class: "info-line", text: "Diese Einheit wird komplett entfernt. Das kann nicht rueckgaengig gemacht werden." }),
+  openSheet("Training löschen?", [
+    el("div", { class: "info-line", text: "Diese Einheit wird komplett entfernt. Das kann nicht rückgängig gemacht werden." }),
     el("button", {
-      class: "btn danger block", text: "Ja, loeschen", attrs: { style: "margin-top:14px" },
-      on: { click: () => { store.deleteSession(session.id); closeSheet(); toast("Geloescht"); navigate("home"); } },
+      class: "btn danger block", text: "Ja, löschen", attrs: { style: "margin-top:14px" },
+      on: { click: () => { store.deleteSession(session.id); closeSheet(); toast("Gelöscht"); navigate("home"); } },
     }),
     el("button", { class: "btn ghost block", text: "Abbrechen", attrs: { style: "margin-top:8px" }, on: { click: closeSheet } }),
   ]);
 }
 
-// Eine Uebungs-Karte im Logger
+// Eine Übungs-Karte im Logger
 function renderLogEntry(session, entry, idx, rerender) {
   const item = getItem(entry.itemId);
   if (!item) return el("div");
@@ -195,7 +195,7 @@ function renderLogEntry(session, entry, idx, rerender) {
     card.appendChild(el("div", { class: "log-last", text: "Erstes Mal, dein Startwert." }));
   }
 
-  // Live-Update-Funktion fuer Kopf
+  // Live-Update-Funktion für Kopf
   const refreshHead = () => {
     const cb = store.bestOfEntry(entry, item.type);
     bestNode.textContent = cb == null ? "–" : (isHold ? fmtSeconds(cb) : cb + " Wdh");
@@ -204,7 +204,7 @@ function renderLogEntry(session, entry, idx, rerender) {
     card.classList.toggle("beat", !!(prev && cb != null && cb > prev.best));
   };
 
-  // Saetze
+  // Sätze
   const setsWrap = el("div", {});
   const renderSets = () => {
     clear(setsWrap);
@@ -213,7 +213,7 @@ function renderLogEntry(session, entry, idx, rerender) {
   renderSets();
   card.appendChild(setsWrap);
 
-  // Timer (nur Holds) oder Satz hinzufuegen
+  // Timer (nur Holds) oder Satz hinzufügen
   if (isHold) {
     card.appendChild(timerControl(session, entry, () => { renderSets(); refreshHead(); }));
   }
@@ -253,7 +253,7 @@ function renderSet(session, entry, set, si, item, onChange, rerender) {
   return row;
 }
 
-// Timer, der beim Stoppen die gehaltene Zeit als Satz eintraegt
+// Timer, der beim Stoppen die gehaltene Zeit als Satz einträgt
 function timerControl(session, entry, onDone) {
   let running = false;
   let start = 0;
@@ -284,16 +284,16 @@ function timerControl(session, entry, onDone) {
   return btn;
 }
 
-// Uebung zum Training hinzufuegen (aus "Meine", sonst Hinweis aufs Archiv)
+// Übung zum Training hinzufügen (aus "Meine", sonst Hinweis aufs Archiv)
 function openAddExercise(session, rerender) {
   const my = store.getMyItems().map((m) => ({ m, item: getItem(m.itemId) })).filter((x) => x.item);
   const already = new Set(session.entries.map((e) => e.itemId));
   const content = [];
 
   if (!my.length) {
-    content.push(el("div", { class: "info-line", text: "Du hast noch keine Uebungen ausgewaehlt. Waehle sie im Archiv aus." }));
+    content.push(el("div", { class: "info-line", text: "Du hast noch keine Übungen ausgewählt. Wähle sie im Archiv aus." }));
     content.push(el("button", { class: "btn primary block", text: "Zum Archiv", attrs: { style: "margin-top:12px" }, on: { click: () => { closeSheet(); navigate("archive"); } } }));
-    openSheet("Uebung hinzufuegen", content);
+    openSheet("Übung hinzufügen", content);
     return;
   }
 
@@ -312,8 +312,8 @@ function openAddExercise(session, rerender) {
       el("span", { class: `badge type-${item.type}`, text: item.type === "hold" ? "Sek." : "Wdh" }),
     ]));
   });
-  if (!list.children.length) content.push(el("div", { class: "info-line", text: "Alle deine Uebungen sind schon im Training." }));
+  if (!list.children.length) content.push(el("div", { class: "info-line", text: "Alle deine Übungen sind schon im Training." }));
   content.push(list);
-  content.push(el("button", { class: "btn ghost block", text: "Weitere im Archiv waehlen", attrs: { style: "margin-top:10px" }, on: { click: () => { closeSheet(); navigate("archive"); } } }));
-  openSheet("Uebung hinzufuegen", content);
+  content.push(el("button", { class: "btn ghost block", text: "Weitere im Archiv wählen", attrs: { style: "margin-top:10px" }, on: { click: () => { closeSheet(); navigate("archive"); } } }));
+  openSheet("Übung hinzufügen", content);
 }
